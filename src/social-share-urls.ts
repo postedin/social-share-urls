@@ -8,6 +8,7 @@ export type SocialProvider = {
 	name: string;
 	link(params: BuildUrlParams): string;
 	svg: string;
+	svgAlt?: string;
 };
 
 const providers: { [name: string]: SocialProvider } = { linkedin };
