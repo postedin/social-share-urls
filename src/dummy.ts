@@ -3,6 +3,7 @@ import { BuildUrlParams, provider, SocialProvider } from './social-share-urls';
 
 const providers: { [name: string]: SocialProvider } = {
 	linkedin: provider('linkedin'),
+	twitter: provider('twitter'),
 };
 
 const tokenData: BuildUrlParams = {
@@ -42,7 +43,7 @@ ${Object.entries(exampleData).map(
 							<thead>
 								<tr>
 									<th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-100 sm:pl-6 md:pl-0">Provider</th>
-									<th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-slate-100">SVG</th>
+									<th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-slate-100 whitespace-nowrap">SVG -- Alt</th>
 									<th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-slate-100">Name</th>
 									<th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-slate-100">Link</th>
 									<th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-slate-100">Example</th>
@@ -56,7 +57,13 @@ ${Object.entries(exampleData).map(
 										<tr>
 											<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-slate-100 sm:pl-6 md:pl-0">${name}</td>
 											<td class="whitespace-nowrap py-4 px-3 text-sm text-slate-400">
-												${provider.svg}
+												<div class="flex items-center -mt-1.5">
+													<span class="h-5 w-5">${provider.svg}</span>
+													${
+														provider.svgAlt &&
+														`<span class="px-1">--</span><span class="h-5 w-5">${provider.svgAlt}</span>`
+													}
+												</div>
 											</td>
 											<td class="whitespace-nowrap py-4 px-3 text-sm text-slate-400">${
 												provider.name

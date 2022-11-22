@@ -1,7 +1,9 @@
-import linkedin from './linkedin';
+import linkedin from './providers/linkedin';
+import twitter from './providers/twitter';
 
 export type BuildUrlParams = {
 	url: string;
+	[key: string]: string;
 };
 
 export type SocialProvider = {
@@ -11,7 +13,7 @@ export type SocialProvider = {
 	svgAlt?: string;
 };
 
-const providers: { [name: string]: SocialProvider } = { linkedin };
+const providers: { [name: string]: SocialProvider } = { linkedin, twitter };
 
 export function provider(name: string) {
 	return providers[name];
