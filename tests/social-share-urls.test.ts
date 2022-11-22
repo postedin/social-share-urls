@@ -5,6 +5,7 @@ import {
 import UrlError from '../src/url-error';
 import linkedin from '../src/providers/linkedin';
 import twitter from '../src/providers/twitter';
+import whatsapp from '../src/providers/whatsapp';
 
 const goodParams = {
 	url: 'https://vitejs.dev',
@@ -25,6 +26,10 @@ const providers: {
 	twitter: [
 		twitter,
 		`https://twitter.com/intent/tweet?url=${testUrl}&text=Test+%22text%22%21+%28that+should+be+encoded%29.&via=jest%21&hashtags=one%2Ctwo%2Cthree`,
+	],
+	whatsapp: [
+		whatsapp,
+		`https://api.whatsapp.com/send?url=${testUrl}&text=Test+%22text%22%21+%28that+should+be+encoded%29.`,
 	],
 };
 

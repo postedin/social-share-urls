@@ -1,5 +1,6 @@
 import linkedin from './providers/linkedin';
 import twitter from './providers/twitter';
+import whatsapp from './providers/whatsapp';
 
 export type BuildUrlParams = {
 	url: string;
@@ -12,7 +13,11 @@ export type SocialProvider = {
 	svg: string;
 };
 
-const providers: { [name: string]: SocialProvider } = { linkedin, twitter };
+const providers: { [name: string]: SocialProvider } = {
+	linkedin,
+	twitter,
+	whatsapp,
+};
 
 export function provider(name: string) {
 	return providers[name];

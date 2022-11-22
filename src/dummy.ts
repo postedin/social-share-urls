@@ -4,15 +4,23 @@ import { BuildUrlParams, provider, SocialProvider } from './social-share-urls';
 const providers: { [name: string]: SocialProvider } = {
 	linkedin: provider('linkedin'),
 	twitter: provider('twitter'),
-};
-
-const tokenData: BuildUrlParams = {
-	url: '__URL__',
+	whatsapp: provider('whatsapp'),
 };
 
 const exampleData: BuildUrlParams = {
 	url: 'https://vitejs.dev',
+	text: 'Test "text"! (that should be encoded).',
+	via: 'jest!',
+	hashtags: 'one,two,three',
 };
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const tokenData: BuildUrlParams = Object.fromEntries(
+	Object.keys(exampleData).map((param) => {
+		return [param, `__${param.toUpperCase()}__`];
+	})
+);
 
 const html = `
 	<div class="h-screen bg-slate-800">
@@ -24,21 +32,21 @@ const html = `
 				<div>
 					<pre>
 <span class="font-semibold">[Link Column]</span>
-${Object.entries(tokenData).map(
-	([param, value]) => `${param}: ${JSON.stringify(value)}`
-)}
+${Object.entries(tokenData)
+	.map(([param, value]) => `${param}: ${JSON.stringify(value)}`)
+	.join('\n')}
 
 <span class="font-semibold">[Example Column]</span>
-${Object.entries(exampleData).map(
-	([param, value]) => `${param}: ${JSON.stringify(value)}`
-)}
+${Object.entries(exampleData)
+	.map(([param, value]) => `${param}: ${JSON.stringify(value)}`)
+	.join('\n')}
           </pre>
         </div>
 			</div>
 			<div class="mt-5 flex flex-col">
 				<div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
 					<div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-						<table class="min-w-full divide-y divide-slate-700">
+						<table class="min-w-full divide-y divide-slate-600">
 							<thead>
 								<tr>
 									<th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-100 sm:pl-6 md:pl-0">Provider</th>
@@ -48,7 +56,7 @@ ${Object.entries(exampleData).map(
 									<th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-slate-100">Example</th>
 								</tr>
 							</thead>
-							<tbody class="divide-y divide-gray-200">
+							<tbody class="divide-y divide-gray-700">
 								${Object.entries(providers)
 									.map(([name, provider]) => {
 										const example = provider.link(exampleData);
