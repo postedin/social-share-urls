@@ -14,8 +14,7 @@ const exampleData: BuildUrlParams = {
 	url: 'https://vitejs.dev',
 };
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+const html = `
 	<div class="h-screen bg-slate-800">
 		<div class="p-4 sm:p-6 lg:p-8 max-w-6xl">
 			<h1 class="text-xl font-semibold text-slate-100">Social Share URLs Dummy Test</h1>
@@ -43,27 +42,22 @@ ${Object.entries(exampleData).map(
 							<thead>
 								<tr>
 									<th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-100 sm:pl-6 md:pl-0">Provider</th>
-									<th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-slate-100 whitespace-nowrap">SVG -- Alt</th>
+									<th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-slate-100">SVG</th>
 									<th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-slate-100">Name</th>
 									<th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-slate-100">Link</th>
 									<th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-slate-100">Example</th>
 								</tr>
 							</thead>
 							<tbody class="divide-y divide-gray-200">
-								${Object.entries(providers).map(([name, provider]) => {
-									const example = provider.link(exampleData);
+								${Object.entries(providers)
+									.map(([name, provider]) => {
+										const example = provider.link(exampleData);
 
-									return `
+										return `
 										<tr>
 											<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-slate-100 sm:pl-6 md:pl-0">${name}</td>
 											<td class="whitespace-nowrap py-4 px-3 text-sm text-slate-400">
-												<div class="flex items-center -mt-1.5">
-													<span class="h-5 w-5">${provider.svg}</span>
-													${
-														provider.svgAlt &&
-														`<span class="px-1">--</span><span class="h-5 w-5">${provider.svgAlt}</span>`
-													}
-												</div>
+											  <div class="h-6 w-6">${provider.svg}</div>
 											</td>
 											<td class="whitespace-nowrap py-4 px-3 text-sm text-slate-400">${
 												provider.name
@@ -80,7 +74,8 @@ ${Object.entries(exampleData).map(
 											</td>
 										</tr>
 									`;
-								})}
+									})
+									.join('\n')}
 							</tbody>
 						</table>
 					</div>
@@ -89,3 +84,6 @@ ${Object.entries(exampleData).map(
 		</div>
 	</div>
 `;
+
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+document.querySelector<HTMLDivElement>('#app')!.innerHTML = html;
