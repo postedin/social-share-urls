@@ -13,8 +13,7 @@ const WhatsApp: SocialProvider = {
 
 		return `https://api.whatsapp.com/send?${new URLSearchParams(
 			Object.entries({
-				url,
-				text,
+				text: text ? `${text} ${url}` : url,
 			}).filter(([, v]) => v)
 		)}`;
 	},

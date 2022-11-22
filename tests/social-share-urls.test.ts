@@ -17,19 +17,26 @@ const goodParams = {
 const testUrl = encodeURIComponent('https://vitejs.dev');
 
 const providers: {
-	[name: string]: [provider: SocialProvider, expected: string];
+	[name: string]: [
+		provider: SocialProvider,
+		expected: string,
+		expectedUrlOnly: string
+	];
 } = {
 	linkedin: [
 		linkedin,
+		`https://www.linkedin.com/sharing/share-offsite/?url=${testUrl}`,
 		`https://www.linkedin.com/sharing/share-offsite/?url=${testUrl}`,
 	],
 	twitter: [
 		twitter,
 		`https://twitter.com/intent/tweet?url=${testUrl}&text=Test+%22text%22%21+%28that+should+be+encoded%29.&via=jest%21&hashtags=one%2Ctwo%2Cthree`,
+		`https://twitter.com/intent/tweet?url=${testUrl}`,
 	],
 	whatsapp: [
 		whatsapp,
-		`https://api.whatsapp.com/send?url=${testUrl}&text=Test+%22text%22%21+%28that+should+be+encoded%29.`,
+		`https://api.whatsapp.com/send?text=Test+%22text%22%21+%28that+should+be+encoded%29.+${testUrl}`,
+		`https://api.whatsapp.com/send?text=${testUrl}`,
 	],
 };
 
@@ -47,9 +54,7 @@ describe('Social Share URLs', () => {
 	});
 
 	it("links don't include undefined params", () => {
-		for (const [name, [, expected]] of Object.entries(providers)) {
-			const expectedUrlOnly = expected.split(testUrl)[0] + testUrl;
-
+		for (const [name, [, , expectedUrlOnly]] of Object.entries(providers)) {
 			expect(getProvider(name).link({ url: goodParams.url })).toEqual(
 				expectedUrlOnly
 			);
