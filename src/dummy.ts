@@ -4,6 +4,7 @@ import { BuildUrlParams, provider, SocialProvider } from './social-share-urls';
 const providers: { [name: string]: SocialProvider } = {
 	linkedin: provider('linkedin'),
 	twitter: provider('twitter'),
+	x: provider('x'),
 	whatsapp: provider('whatsapp'),
 };
 
@@ -19,7 +20,7 @@ const exampleData: BuildUrlParams = {
 const tokenData: BuildUrlParams = Object.fromEntries(
 	Object.keys(exampleData).map((param) => {
 		return [param, `__${param.toUpperCase()}__`];
-	})
+	}),
 );
 
 const html = `
@@ -71,7 +72,7 @@ ${Object.entries(exampleData)
 												provider.name
 											}</td>
 											<td class="whitespace-nowrap py-4 px-3 text-sm text-slate-400">${provider.link(
-												tokenData
+												tokenData,
 											)}</td>
 											<td class="whitespace-nowrap py-4 px-3 text-sm text-slate-400">
 												<a class="flex items-center hover:text-slate-300 mb-px" href="${example}" target="_blank" rel="noopener">
